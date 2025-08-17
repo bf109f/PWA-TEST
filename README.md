@@ -68,7 +68,7 @@
 
 ## 相关技术
 
-### `Notification`网页通知
+### 1. `Notification`网页通知
 
 1. `Notification.permission`查询权限
 
@@ -99,3 +99,20 @@ new Notification("title", {
 ```
 
 ![显示通知](./rmp/image3.png)
+
+### 2. `navigator`
+
+1. `navigator.onLine`判断是否有网
+2. `window.addEventListener("online", ()=>{}})`监听是否有网
+
+### 3. `fetch`
+
+```js
+fetch("https://api.github.com")
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    console.log(data);
+  });
+```
