@@ -41,7 +41,13 @@ self.addEventListener("activate", async () => {
 });
 
 self.addEventListener("fetch", (event) => {
-  //   const req = event.request;
+  const req = event.request;
+  const url = new URL(req.url);
+  // 校验是否同源
+  if (url.origin !== location.origin) {
+    // If the request is not for the same origin, skip it.
+    return;
+  }
   // 给浏览器响应
   event.respondWith(newWorkFirst(event));
 });
@@ -68,5 +74,29 @@ async function newWorkFirst(event) {
     if (cachedResponse) {
       return cachedResponse;
     }
+  }
+}
+
+/**
+ * 缓存优先策略
+ * @param {object} event
+ * @returns
+ */
+async function cacheFirst(event) {
+  const cache = await caches.open(CACHE_NAME);
+  // Try to get the resource from the cache.
+  const cachedResponse = await cache.match(event.request);
+  if (cachedResponse) {
+    return cachedResponse;
+  }
+  // If not in the cache, try the network.
+  try {
+    const fetchResponse = await fetch(event.request);
+    // Save the resource in the cache and return it.
+    cache.put(event.request, fetchResponse.clone());
+    return fetchResponse;
+  } catch (e) {
+    console.error("Network request failed:", e);
+    throw e;
   }
 }
