@@ -1,0 +1,21 @@
+{
+  "name": "系统 B",
+  "short_name": "AppB",
+  "start_url": "/src/app-b.html?source=pwa",
+  "scope": "/src/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#d32f2f",
+  "icons": [
+    {
+      "src": "icons/b-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/b-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
